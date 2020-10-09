@@ -73,7 +73,7 @@ public class SWEA_5644_무선충전 {
 				BCque.add(temp);
 			}
 			while (!queA.isEmpty()) {
-				int size = M+1 - queA.size();
+				int size = M + 1 - queA.size();
 				Point perA = queA.poll();
 				Point perB = queB.poll();
 				for (int i = 0; i < A; i++) {
@@ -92,82 +92,80 @@ public class SWEA_5644_무선충전 {
 					}
 
 				}
-				int temptempcnt=0;
-				int temptemptempcnt=0;
+				int temptempcnt = 0;
+				int temptemptempcnt = 0;
 				for (int i = 1; i <= A; i++) {
-					if(BC[i][2]==2) {
+					if (BC[i][2] == 2) {
 						temptempcnt++;
 					}
-					if(BC[i][3]==1) {
+					if (BC[i][2] == 1) {
 						temptemptempcnt++;
 					}
 				}
-				int tempcnt=0;
-				if(temptempcnt==1&&temptemptempcnt==2) {
+				if (temptempcnt == 1 && temptemptempcnt == 2) {
+					int resultBC = 0;
 					for (int i = 1; i <= A; i++) {
-						int resultBC = 0;
-						if (BC[i][2] ==1&&BC[i][3]==1) {
-							resultBC = BC[i][1] / BC[i][3];
-							if (result[1][size] < resultBC) {
-								result[1][size] = resultBC;
-								tempcnt=i;
+						if (BC[i][2] == 1) {
+							if (resultBC < BC[i][1]) {
+								resultBC = BC[i][1];
 							}
-							
 						}
 					}
-					
-				}else if(temptempcnt==1&&temptemptempcnt==1){
 					for (int i = 1; i <= A; i++) {
-						int resultBC = 0;
-						if (BC[i][2] ==2) {
-							resultBC = BC[i][1];
-								result[1][size] = resultBC;
-								tempcnt=i;
-								BC[i][4]=0;
+						if (BC[i][2] == 2) {
 							
-						}
-					}
-				}else if(temptempcnt==2){
-					for (int i = 1; i <= A; i++) {
-						int resultBC = 0;
-						if (BC[i][2] ==2) {
-							resultBC = BC[i][1];
+							
+							resultBC+=BC[i][1];
 
-								result[1][size] = resultBC;
-								tempcnt=i;
-								BC[i][4]=0;
-								break;
-							
 						}
 					}
-				}else {
+					result[0][size]=resultBC;
+				} else if (temptempcnt == 1 && temptemptempcnt == 1) {
+					int resultBC = 0;
 					for (int i = 1; i <= A; i++) {
-						int resultBC = 0;
+						if (BC[i][2] > 0) {
+							resultBC += BC[i][1];
+
+						}
+					}
+					result[0][size]=resultBC;
+				} else if (temptempcnt == 2) {
+					int resultBC = 0;
+					for (int i = 1; i <= A; i++) {
+						if (BC[i][2] == 2) {
+							resultBC += BC[i][1];
+
+						}
+					}
+					result[0][size]=resultBC;
+				}
+				else if (temptempcnt == 1 &&temptemptempcnt==0) {
+					int resultBC = 0;
+					for (int i = 1; i <= A; i++) {
+						if (BC[i][2] == 2) {
+							resultBC += BC[i][1];
+
+						}
+					}
+					result[0][size]=resultBC;
+				} 
+				else {
+					for (int i = 1; i <= A; i++) {
 						if (BC[i][3] > 0) {
-							resultBC = BC[i][1] / BC[i][2];
-							if (result[1][size] < resultBC) {
-								result[1][size] = resultBC;
-								tempcnt=i;
+							if (result[1][size] < BC[i][1]) {
+								result[1][size] = BC[i][1];
+							}
+
+						}
+						if (BC[i][4] > 0) {
+							if (result[2][size] < BC[i][1]) {
+								result[2][size] = BC[i][1];
 							}
 							
 						}
 					}
-					
-				}
-				for (int i = 0; i <= A; i++) {
-					if(BC[i][3]>0&&tempcnt!=i) {
-						BC[i][2]--;
-					}
-				}
-				for (int i = 1; i <= A; i++) {
-					if (BC[i][4] > 0) {
-						int resultBC = BC[i][1] / BC[i][2];
-						if (result[2][size] < resultBC) {
-							result[2][size] = resultBC;
-						}
-						
-					}
-					
+					result[0][size]=result[1][size]+result[2][size];
+
 				}
 				for (int i = 0; i <= A; i++) {
 					for (int j = 2; j <= 4; j++) {
@@ -175,20 +173,12 @@ public class SWEA_5644_무선충전 {
 					}
 				}
 			}
+			int sum = 0;
 
-//			for (int i = 1; i <= 2; i++) {
-//				for (int j = 0; j <= M; j++) {
-//					System.out.print(result[i][j]+" ");
-//				}
-//				System.out.println();
-//			}
-			int sum=0;
-			for (int i = 1; i <= 2; i++) {
-				for (int j = 0; j <= M; j++) {
-					sum+=result[i][j];
-				}
+			for (int j = 0; j <= M; j++) {
+				sum += result[0][j];
 			}
-			System.out.println("#"+t+" "+sum);
+			System.out.println("#" + t + " " + sum);
 
 		}
 	}
