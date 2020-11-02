@@ -1,6 +1,7 @@
 package com.ssafy.study;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +12,16 @@ public class SWEA_5644_무선충전 {
 
 	public static class Point {
 		int x, y;
+		int C;
+		int P;
+
+		public Point(int x, int y, int c, int p) {
+			super();
+			this.x = x;
+			this.y = y;
+			C = c;
+			P = p;
+		}
 
 		public Point(int x, int y) {
 			super();
@@ -20,14 +31,15 @@ public class SWEA_5644_무선충전 {
 
 	}
 
+	private static int A;
+	private static List<Point> BCque;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int N = 10;
-		int arr[][] = new int[N + 1][N + 1];
 		int T = sc.nextInt();
 		for (int t = 1; t <= T; t++) {
 			int M = sc.nextInt();
-			int A = sc.nextInt();
+			A = sc.nextInt();
 			int result[][] = new int[3][M + 1];
 			int BC[][] = new int[A + 1][5];
 			LinkedList<Point> queA = new LinkedList<>();
@@ -45,141 +57,67 @@ public class SWEA_5644_무선충전 {
 //			for (int i = 0; i <= M; i++) {
 //				System.out.println(queA.poll().x);
 //			}
-			List<List<Point>> BCque = new ArrayList<>();
+			BCque = new ArrayList<>();
 			for (int i = 1; i <= A; i++) {
-				List<Point> temp = new ArrayList<>();
 				int y = sc.nextInt();
 				int x = sc.nextInt();
 				int C = sc.nextInt();
-				int cnt = 0;
-				for (int j = x - C; j <= x; j++) {
-					for (int j2 = y - cnt; j2 <= y + cnt; j2++) {
-						if (j > 0 && j <= N && j2 > 0 && j2 <= N) {
-							temp.add(new Point(j, j2));
-						}
-					}
-					cnt++;
-				}
-				cnt = cnt - 2;
-				for (int j = x + 1; j <= x + C; j++) {
-					for (int j2 = y - cnt; j2 <= y + cnt; j2++) {
-						if (j > 0 && j <= N && j2 > 0 && j2 <= N) {
-							temp.add(new Point(j, j2));
-						}
-					}
-					cnt--;
-				}
-				BC[i][1] = sc.nextInt();
-				BCque.add(temp);
+				int P = sc.nextInt();
+				BCque.add(new Point(x, y, C, P));
 			}
+			ArrayList<Integer> Asum =new ArrayList<Integer>();
+			ArrayList<Integer> Bsum =new ArrayList<Integer>();
 			while (!queA.isEmpty()) {
 				int size = M + 1 - queA.size();
 				Point perA = queA.poll();
 				Point perB = queB.poll();
-				for (int i = 0; i < A; i++) {
-					for (Point p : BCque.get(i)) {
-						if (perA.x == p.x && perA.y == p.y) {
-							BC[i + 1][2]++;
-							BC[i + 1][3]++;
-						}
-					}
-					for (Point p : BCque.get(i)) {
-						if (perB.x == p.x && perB.y == p.y) {
-							BC[i + 1][2]++;
-							BC[i + 1][4]++;
-
-						}
-					}
-
-				}
-				int temptempcnt = 0;
-				int temptemptempcnt = 0;
-				for (int i = 1; i <= A; i++) {
-					if (BC[i][2] == 2) {
-						temptempcnt++;
-					}
-					if (BC[i][2] == 1) {
-						temptemptempcnt++;
+				
+				Asum=getAp(perA.x,perA.y);
+				Bsum=getAp(perB.x,perB.y);
+				if(Asum.size()==0 && Bsum.size()==0) result[0][size]=0;
+				else if(Asum.size()==0) result[0][size]+=getMaxPower(Bsum);
+				else if(Bsum.size()==0) result[0][size]+=getMaxPower(Asum);
+				int temp=0;
+				int max=0;
+				for(Integer a : Asum) {
+					for (Integer b : Bsum) {
+						if(a!=b)temp=BCque.get(a).P+BCque.get(b).P;
+						else temp = Math.max(BCque.get(a).P, BCque.get(b).P);
+						
+						if(max<temp) max= temp;
 					}
 				}
-				if (temptempcnt == 1 && temptemptempcnt == 2) {
-					int resultBC = 0;
-					for (int i = 1; i <= A; i++) {
-						if (BC[i][2] == 1) {
-							if (resultBC < BC[i][1]) {
-								resultBC = BC[i][1];
-							}
-						}
-					}
-					for (int i = 1; i <= A; i++) {
-						if (BC[i][2] == 2) {
-							
-							
-							resultBC+=BC[i][1];
+				result[0][size]+=max;
 
-						}
-					}
-					result[0][size]=resultBC;
-				} else if (temptempcnt == 1 && temptemptempcnt == 1) {
-					int resultBC = 0;
-					for (int i = 1; i <= A; i++) {
-						if (BC[i][2] > 0) {
-							resultBC += BC[i][1];
-
-						}
-					}
-					result[0][size]=resultBC;
-				} else if (temptempcnt == 2) {
-					int resultBC = 0;
-					for (int i = 1; i <= A; i++) {
-						if (BC[i][2] == 2) {
-							resultBC += BC[i][1];
-
-						}
-					}
-					result[0][size]=resultBC;
-				}
-				else if (temptempcnt == 1 &&temptemptempcnt==0) {
-					int resultBC = 0;
-					for (int i = 1; i <= A; i++) {
-						if (BC[i][2] == 2) {
-							resultBC += BC[i][1];
-
-						}
-					}
-					result[0][size]=resultBC;
-				} 
-				else {
-					for (int i = 1; i <= A; i++) {
-						if (BC[i][3] > 0) {
-							if (result[1][size] < BC[i][1]) {
-								result[1][size] = BC[i][1];
-							}
-
-						}
-						if (BC[i][4] > 0) {
-							if (result[2][size] < BC[i][1]) {
-								result[2][size] = BC[i][1];
-							}
-							
-						}
-					}
-					result[0][size]=result[1][size]+result[2][size];
-
-				}
-				for (int i = 0; i <= A; i++) {
-					for (int j = 2; j <= 4; j++) {
-						BC[i][j] = 0;
-					}
-				}
 			}
 			int sum = 0;
-
-			for (int j = 0; j <= M; j++) {
-				sum += result[0][j];
-			}
+				for (int j = 0; j <= M; j++) {
+					sum += result[0][j];
+				}
+				
 			System.out.println("#" + t + " " + sum);
 
 		}
+	}
+
+	private static int getMaxPower(ArrayList<Integer> apList) {
+		// TODO Auto-generated method stub
+		int max=0;
+		for(Integer a:apList) {
+			if(max<BCque.get(a).P) max=BCque.get(a).P;
+		}
+		return max;
+		
+	}
+
+	private static ArrayList<Integer> getAp(int x, int y) {
+		ArrayList<Integer> apList=new ArrayList<Integer>();
+		int d=0;
+		for (int i = 0; i < A; i++) {
+			d= Math.abs(BCque.get(i).x-x)+Math.abs(BCque.get(i).y-y);
+			if(d<=BCque.get(i).C) apList.add(i);
+		}
+		// TODO Auto-generated method stub
+		return apList;
 	}
 }
