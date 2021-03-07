@@ -75,9 +75,9 @@ public class 놀거리 {
 //			System.out.println(text.get(3).text());
 //			System.out.println(text.select(".txt_adr").text());
 
-			bw.write(title.text() + ",관광지," + text.get(1).text() + "," + text.select(".txt_adr").text() + ","
-					+ text.get(3).text() + "," + ",,," + img.attr("src") + "," + score.text());
-			bw.newLine();
+//			bw.write(title.text() + ",관광지," + text.get(1).text() + "," + text.select(".txt_adr").text() + ","
+//					+ text.get(3).text() + "," + ",,," + img.attr("src") + "," + score.text());
+//			bw.newLine();
 			}
 			
 			no++;
