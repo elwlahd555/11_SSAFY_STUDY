@@ -16,11 +16,11 @@ public class 놀거리 {
 
 	public static void main(String[] args) throws IOException {
 
-		File file = new File("C:\\ssafy\\test04.txt");
+		File file = new File("C:\\ssafy\\test03.txt");
 
 		BufferedWriter bw;
 		bw = new BufferedWriter(new FileWriter(file));
-		int no = 1;
+		int no = 3;
 		while (no <= 3) {
 
 			Connection.Response response = Jsoup.connect(
@@ -74,9 +74,10 @@ public class 놀거리 {
 //			System.out.println(text.get(1).text());
 //			System.out.println(text.get(3).text());
 //			System.out.println(text.select(".txt_adr").text());
-//
-			bw.write(title + "!관광지!" + detail + "!"  + "!" + "!" + "!!!" + img);
-			bw.newLine();
+
+//			bw.write(title.text() + ",관광지," + text.get(1).text() + "," + text.select(".txt_adr").text() + ","
+//					+ text.get(3).text() + "," + ",,," + img.attr("src") + "," + score.text());
+//			bw.newLine();
 			}
 			
 			no++;
