@@ -1,4 +1,4 @@
-package com.ssafy.BJ;
+package com.algorithm.BJ;
 
 public class BJ_15802_타노스 {
 	public static void main(String[] args) {

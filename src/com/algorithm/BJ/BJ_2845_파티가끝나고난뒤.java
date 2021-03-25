@@ -1,4 +1,4 @@
-package com.ssafy.BJ;
+package com.algorithm.BJ;
 
 import java.util.Scanner;
 

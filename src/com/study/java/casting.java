@@ -1,4 +1,4 @@
-package com.ssafy.java;
+package com.study.java;
 
 public class casting {
 
