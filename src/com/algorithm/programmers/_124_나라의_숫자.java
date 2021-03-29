@@ -1,19 +1,20 @@
 package com.algorithm.programmers;
 
-import java.util.LinkedList;
-
 public class _124_나라의_숫자 {
 	public static void main(String[] args) {
 		int n = 12;
 		String answer = "";
-		int cnt=1;
-		while(n>0) {
-			int temp=0;
-			temp=(int) (n/Math.pow(3, cnt))/3;
-			n-=Math.pow(3, cnt);
-			cnt++;
-			System.out.println(temp);
+		String[] number = { "4", "1", "2" };
+		while (n > 0) {
+			int temp = n % 3;
+			n /= 3;
+			if (temp == 0)
+				n--;
+
+			answer = number[temp] + answer;
+
 		}
+		System.out.println(answer);
 	}
 
 }
