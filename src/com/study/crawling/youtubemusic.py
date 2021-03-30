@@ -11,8 +11,8 @@ YOUTUBE_API_VERSION = "v3"
 # build(googleapiclient.discovery) 객체 생성
 youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
                 developerKey=DEVELOPER_KEY)
-f = open("C:\SSAFY\musictitle.txt", 'r', encoding='UTF-8')
-file = open("C:\SSAFY\music01.txt", 'w')
+f = open("C:\\SSAFY\\musictitle.txt", 'r', encoding='UTF-8')
+file = open("C:\\SSAFY\\music01.txt", 'w')
 lines = f.readlines()
 
 for line in lines:
