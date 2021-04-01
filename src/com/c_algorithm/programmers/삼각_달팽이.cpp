@@ -71,6 +71,11 @@ vector<int> solution(int n)
 
 int main()
 {
-    solution(6);
+    vector<int>answer=solution(6);
+    for (size_t i = 0; i < answer.size(); i++)
+    {
+        cout<<answer.at(i)<<endl;
+    }
+    
     return 0;
 }
