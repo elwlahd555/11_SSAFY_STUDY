@@ -4,14 +4,14 @@ import pprint
 # from oauth2client.tools import argparser
 
 # api key객체 생성
-DEVELOPER_KEY = "AIzaSyDfgrSfOKZyUp8M8uJJ16N5_ChsgS_wEJA"
+DEVELOPER_KEY = "AIzaSyBmK9-jEmCYXotNsa7NagyosJ-GdpPFAG8"
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
 # build(googleapiclient.discovery) 객체 생성
 youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
                 developerKey=DEVELOPER_KEY)
-f = open("C:\\SSAFY\\musictitle.txt", 'r', encoding='UTF-8')
+f = open("C:\\SSAFY\\music.txt", 'r', encoding='UTF-8')
 file = open("C:\\SSAFY\\music01.txt", 'w')
 lines = f.readlines()
 
