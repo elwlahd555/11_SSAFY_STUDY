@@ -1,10 +1,6 @@
 package com.algorithm.programmers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class 순위_검색 {
 	static Map<String, ArrayList<Integer>> infoMap = new HashMap<>();
