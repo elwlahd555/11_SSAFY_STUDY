@@ -1,0 +1,147 @@
+<html lang="ko">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="keywords" content="사이버안전국" />
+    <title>경찰청 사이버안전국</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+      href="/commons/css/reset.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="all"
+      href="/commons/css/global.css"
+    />
+    <script type="text/javascript" src="/commons/js/jquery.js"></script>
+  </head>
+  <body>
+  <div class="box-w">
+	
+	<div id="neighbor-cafe" class="widget-element">
+		<div class="group-tit">
+			<h4 class="tcol-t">사기피해사례 조회</h4>
+		</div>
+		<div class="thecheat-search">
+			<form name="thecheatForm" method="post" action="https://api.thecheat.co.kr/web/result.php" target="_blank">
+				<input type="hidden" name="url" value="cafe.naver.com">
+    			<input title="전화 또는 계좌번호 입력" type="text" name="keyword" value="전화, 계좌번호" class="input-x tcol-c design-input" onclick="this.value = '';">
+				<a href="#" class="search_btn" onclick="document.thecheatForm.submit();"><span>검색</span></a>
+			</form>
+			<p class="comment tcol-c">더치트는 범죄피해 방지를 위해<br>2006년부터 운영되고 있습니다.</p>
+			<p class="comment tcol-c">최근 6개월내 1회 이상 등록된<br>정보를 확인 할 수 있습니다.</p>
+			<span class="bca tcol-c">제공: 더치트(TheCheat.co.kr)</span>
+		</div>
+	</div>
+</div>
+    <div class="search_fraud_widget">
+      <h1>
+        <a href="http://cyberbureau.police.go.kr" target="_blank"
+          ><img
+            src="/commons/images/site/netdurumiTitle.png"
+            width="150"
+            height="30"
+            alt="사이버안전국"
+        /></a>
+      </h1>
+      <fieldset>
+        <legend>필수입력항목</legend>
+        <p class="input_box1">
+          <input
+            id="field1"
+            name="field"
+            type="radio"
+            value="H"
+            checked="checked"
+          /><label for="field1">전화번호</label> 전화번호
+          <input id="field2" name="field" type="radio" value="A" />
+          <label for="field2">계좌번호</label> 계좌번호
+        </p>
+        <p class="input_box2">
+          <label for="idsearch">내용</label>
+          <input name="keyword" type="text" id="idsearch" class="number" />
+          <span id="getXmlSearch">검색</span>
+        </p>
+      </fieldset>
+      <p class="fraud_box" id="search_result">
+        <span style="color: #b1b1b1"
+          >거래 전 반드시 상대방이 최근 3개월내 3회 이상 '사이버 사기'로
+          경찰청에 신고된 사실이 있는지 확인해 보세요.</span
+        >
+      </p>
+      <p class="input_box3">
+        <span id="viewPrevention">예방수칙</span>
+        <span id="viewCyberbureau">신고하기</span>
+      </p>
+      <script type="text/javascript">
+        $(function () {
+          $('#getXmlSearch').live('click', function () {
+            if (checkValidationXml()) {
+              callAjaxData('2');
+            }
+          });
+
+          $('#idsearch').live('keypress', function (e) {
+            if (e.which == 13) {
+              /* 13 == enter key@ascii */
+              $('#getXmlSearch').click();
+            }
+          });
+
+          $('#viewCyberbureau').live('click', function () {
+            window.open(
+              'http://www.cyber.go.kr/crime/sub1.jsp?mid=010101',
+              '_blank'
+            );
+          });
+
+          $('#viewPrevention').live('click', function () {
+            window.open(
+              'http://www.cyber.go.kr/prevention/prevention1.jsp?mid=020301',
+              '_blank'
+            );
+          });
+        });
+
+        function checkValidationXml() {
+          if (!$(':input[name = "keyword"]').val()) {
+            alert('번호를 입력해주세요.');
+            $("input[name = 'keyword']").focus();
+            return false;
+          }
+          return true;
+        }
+
+        function callAjaxData(accessType) {
+          var $field = $(':radio[name="field"]:checked').val();
+          var $keyword = $(':input[name = "keyword"]').val();
+
+          $.ajax({
+            type: 'POST',
+            url: 'https://net-durumi.cyber.go.kr/getMessage.do',
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            data:
+              'fieldType=' +
+              $field +
+              '&keyword=' +
+              $keyword +
+              '&accessType=' +
+              accessType,
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+            error: function (request, status, error) {},
+            success: function (response, status, request) {
+              $('#search_result').html(response['message']);
+            },
+            beforeSend: function () {
+              $('#search_result').html('신고 여부를 확인 중입니다.');
+            },
+            complete: function () {},
+          });
+        }
+      </script>
+    </div>
+  </body>
+</html>
