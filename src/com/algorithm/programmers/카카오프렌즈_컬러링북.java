@@ -1,6 +1,5 @@
 package com.algorithm.programmers;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class 카카오프렌즈_컬러링북 {

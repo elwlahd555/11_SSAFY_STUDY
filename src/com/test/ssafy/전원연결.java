@@ -13,7 +13,7 @@ public class 전원연결 {
 	static int temp[];
 	static boolean visited[];
 
-	static class Point {
+	private static class Point {
 		int x, y;
 
 		public Point(int x, int y) {

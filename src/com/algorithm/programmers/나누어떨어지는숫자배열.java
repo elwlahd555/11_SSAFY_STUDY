@@ -1,6 +1,5 @@
 package com.algorithm.programmers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class 나누어떨어지는숫자배열 {
