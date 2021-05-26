@@ -3,9 +3,9 @@ import csv
 from bs4 import BeautifulSoup
 
 name = open('C:\ssafy\itemname.txt', 'rt', encoding='UTF8')
-file = open('C:\\ssafy\\temp.txt', 'w')
+file = open('C:\\ssafy\\temptemptemp.txt', 'w')
 
-i = 0
+i = 5753
 while True:
     i = i+1
     keyword = name.readline()
