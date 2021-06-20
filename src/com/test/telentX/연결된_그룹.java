@@ -57,17 +57,17 @@ public class 연결된_그룹 {
 
 		int relatedCount = Integer.parseInt(bufferedReader.readLine().trim());
 
-		List<String> related = IntStream.range(0, relatedCount).mapToObj(i -> {
-			try {
-				return bufferedReader.readLine();
-			} catch (IOException ex) {
-				throw new RuntimeException(ex);
-			}
-		}).collect(toList());
-
-		int result = Result.countGroups(related);
-
-		bufferedWriter.write(String.valueOf(result));
+//		List<String> related = IntStream.range(0, relatedCount).mapToObj(i -> {
+//			try {
+//				return bufferedReader.readLine();
+//			} catch (IOException ex) {
+//				throw new RuntimeException(ex);
+//			}
+//		}).collect(toList());
+//
+//		int result = Result.countGroups(related);
+//
+//		bufferedWriter.write(String.valueOf(result));
 		bufferedWriter.newLine();
 
 		bufferedReader.close();
