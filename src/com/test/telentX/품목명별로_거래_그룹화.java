@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-class Result {
+class Result02 {
 
 	/*
 	 * Complete the 'groupTransactions' function below.
@@ -63,15 +63,15 @@ public class 품목명별로_거래_그룹화 {
 			transactions.add(transactionsItem);
 		}
 
-		List<String> result = Result.groupTransactions(transactions);
-
-		for (int i = 0; i < result.size(); i++) {
-			bufferedWriter.write(result.get(i));
-
-			if (i != result.size() - 1) {
-				bufferedWriter.write("\n");
-			}
-		}
+//		List<String> result = Result.groupTransactions(transactions);
+//
+//		for (int i = 0; i < result.size(); i++) {
+//			bufferedWriter.write(result.get(i));
+//
+//			if (i != result.size() - 1) {
+//				bufferedWriter.write("\n");
+//			}
+//		}
 
 		bufferedWriter.newLine();
 
